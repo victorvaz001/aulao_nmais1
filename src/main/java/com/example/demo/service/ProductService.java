@@ -20,8 +20,8 @@ public class ProductService {
 	private ProductRepository repository;
 
 	@Transactional(readOnly = true)
-	public List<ProductDTO> find(PageRequest pageRequest) {
-		List<Product> list = repository.findProductCategories();
-		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
+	public Page<ProductDTO> find(PageRequest pageRequest) {
+		Page<Product> list = repository.findProductCategories(pageRequest);
+		return list.map(x -> new ProductDTO(x));
 	}
 }

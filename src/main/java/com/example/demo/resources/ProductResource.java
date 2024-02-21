@@ -22,13 +22,13 @@ public class ProductResource {
 	private ProductService service;
 	
 	@GetMapping
-	public ResponseEntity<List<ProductDTO>> findAll(
+	public ResponseEntity<Page<ProductDTO>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size
 			) {
 		
 		PageRequest pageRequest = PageRequest.of(page, size);
-		List<ProductDTO> list = service.find(pageRequest);
+		Page<ProductDTO> list = service.find(pageRequest);
 		return ResponseEntity.ok(list);
 	}
 }
