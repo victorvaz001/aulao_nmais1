@@ -21,7 +21,8 @@ public class ProductService {
 
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> find(PageRequest pageRequest) {
-		Page<Product> list = repository.findProductCategories(pageRequest);
-		return list.map(x -> new ProductDTO(x));
+		Page<Product> page = repository.findAll(pageRequest);
+		repository.findProductCategories(page.stream().collect(Collectors.toList())); /*Transformando a pagina em uma lista e passando para o metodo*/
+		return page.map(x -> new ProductDTO(x));
 	}
 }

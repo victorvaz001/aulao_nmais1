@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("SELECT obj FROM Product obj JOIN FETCH obj.categories")
-    Page<Product> findProductCategories(Pageable pageable);
+    @Query("SELECT obj FROM Product obj JOIN FETCH obj.categories WHERE obj IN :products")
+    List<Product> findProductCategories(List<Product> products);
 }
